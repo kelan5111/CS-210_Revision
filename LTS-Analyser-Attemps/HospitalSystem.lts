@@ -1,0 +1,21 @@
+// Hospital system	Doctor:Shared Patient:Thread
+
+const NumDoctors = 1
+const NumPatients = 2
+
+Patient(Id=0) = (register -> wait -> treating -> finish -> leave -> Patient).
+
+Doctors = Doctor[NumDoctors],
+Doctor[doctor:0..NumDoctors] = (when(doctor > 0) treating -> Doctor[doctor-1] |
+								when(doctor < NumDoctors) finish -> Doctor[doctor+1]).
+
+||Hospital = (patient[p_id:0..NumPatients]:Patient(p_id) || Doctors) /
+{[patient:0..NumPatients].treating/treating,
+  [patient:0..NumPatients].finish/finish}.
+
+
+// When relabelling look at both the thread and the shared resource
+// If the thread has an action which is prefixed: action[0] and the shared resource has only action
+// then the actions will not synchronize therefore the thread must be relabelled to match
+
+// {old/new}

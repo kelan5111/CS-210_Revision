@@ -1,0 +1,16 @@
+// Traffic light system
+
+const NumCars = 2
+const NumLights = 2
+range LightRange = 0..1// 0: Red, 1: Amber, 2: Green
+
+TRAFFIC_LIGHT = LIGHTS[0],	// Starts on Red
+LIGHTS[light:LightRange] = (
+							when(light == 0) arrive -> LIGHTS[light] |
+							when(light == 0) wait -> LIGHTS[1] |
+							when(light == 1) leave -> LIGHTS[0]	// Loop back to 0 (Red)
+).
+
+CAR = (arrive -> wait -> leave -> CAR).
+
+||TRAFFIC_LIGHT_SYSTEM = (car[i:0..NumCars]:CAR || TRAFFIC_LIGHT).

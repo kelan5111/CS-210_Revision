@@ -1,0 +1,7 @@
+const PoolCapacity = 5
+
+RESOURCE_POOL = POOL[PoolCapacity],
+POOL[i:0..PoolCapacity] = (when(i > 0) acquire -> POOL[i-1] |
+						   when(i < PoolCapacity) release -> POOL[i+1] |
+						   available[i] -> POOL[i]
+						  ).

@@ -1,0 +1,28 @@
+const CustomerPayment = 100
+const VaultAmount = 1000
+const NumCustomers = 2
+
+CUSTOMER(Id=0, Amount=0) = 
+    (request_deposit -> CUSTOMER_DEPOSIT 
+    | request_withdraw -> CUSTOMER_WITHDRAW),
+CUSTOMER_DEPOSIT = (complete[Id] -> END),
+CUSTOMER_WITHDRAW = (complete[Id] -> END).
+
+BANK_TELLER(Id=0, Amount=CustomerPayment) = 
+    (wait -> BANK_TELLER
+    | request_deposit -> deposit[Amount] -> BANK_TELLER
+    | request_withdraw -> withdraw[Amount] -> BANK_TELLER).
+
+VAULT(Balance=VaultAmount) = VAULT[Balance],
+VAULT[b:0..1100] = (
+    deposit[CustomerPayment] -> VAULT[b+CustomerPayment]
+    | when (b >= CustomerPayment) withdraw[CustomerPayment] -> VAULT[b-CustomerPayment]
+).
+
+||BANK = (
+    alice:BANK_TELLER(0, CustomerPayment) ||
+    bob:BANK_TELLER(1, CustomerPayment) ||
+    c[0]:CUSTOMER(0, CustomerPayment) ||
+    c[1]:CUSTOMER(1, CustomerPayment) ||
+    VAULT
+).

@@ -1,0 +1,17 @@
+const NumRiders = 2
+const NumDrivers = 2
+
+RIDER(Id=0) = (request[Id] -> WAIT), 
+WAIT = (waiting[Id] -> WAIT | assigned[Id] -> RIDER_TRIP),
+RIDER_TRIP = (onTrip[Id] -> RIDER_TRIP | finished[Id] -> STOP).
+
+
+
+DRIVER(Id=0) = (assigned[Id] -> DRIVER_TRIP | waiting[Id] -> DRIVER),
+DRIVER_TRIP = (onTrip[Id] -> DRIVER_TRIP | finished[Id] -> DRIVER).
+
+
+
+||DISPATCH = (forall[i:1..NumRiders] RIDER(i) || forall[j:1..NumDrivers] DRIVER(j)).
+
+

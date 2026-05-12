@@ -1,0 +1,15 @@
+// Vending Machine System
+
+const NumUsers = 4
+const Choices = 2
+range ChoiceRange = 1..Choices	// 0: Tea, 2: Coffee
+
+USER = (enter -> choose[choice:ChoiceRange] -> dispense -> leave -> USER).
+
+VENDING_MACHINE = (enter -> choose[choice:ChoiceRange] -> dispense -> leave -> VENDING_MACHINE).
+
+||VENDING_MACHINE_SYSTEM = (user[i:1..NumUsers]:USER || VENDING_MACHINE)
+/{user[i:1..NumUsers].enter/enter,
+        user[i:1..NumUsers].choose[j:ChoiceRange]/choose[j],
+        user[i:1..NumUsers].dispense/dispense,
+        user[i:1..NumUsers].leave/leave}.

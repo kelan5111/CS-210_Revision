@@ -1,0 +1,20 @@
+// Dining philosophers
+
+const TotalPhil = 3
+
+Philosopher = (sit -> left.acquire -> right.acquire -> eat -> finish ->
+	left.release -> right.release -> stand -> Philosopher).
+
+Fork = (acquire -> release -> Fork).
+
+Waiter = Waiter[0],
+Waiter[i:0..TotalPhil] = (when(i < TotalPhil) sit -> Waiter[i+1] |
+						  when(i > 0) stand -> Waiter[i-1]).
+
+||Philosophers = (forall[i:0..TotalPhil]phil[i]:Philosopher).
+
+||Table = (forall[i:0..TotalPhil]phil[i]:Philosopher ||
+			forall[i:0..TotalPhil]
+			{phil[i].right, phil[(i+1)%(TotalPhil+1)].left}::Fork).
+
+||Dining = (Table || forall[i:0..TotalPhil]{phil[i].sit, phil[i].stand}::Waiter).

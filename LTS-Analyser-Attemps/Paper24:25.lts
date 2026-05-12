@@ -1,0 +1,6 @@
+// FSP question 24/25
+
+SHARED_OBJECT(N=5) = COUNTER[0],
+COUNTER[count:0..N] = (start -> COUNTER[0] |
+					   when(count < N) event -> COUNTER[count+1] |
+					   when(count > 0) tally -> COUNTER[count]).

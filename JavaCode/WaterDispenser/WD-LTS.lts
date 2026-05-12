@@ -1,0 +1,8 @@
+const MaxCapacity = 10
+
+WATER_DISPENSER = CAPACITY[0],
+CAPACITY[i:0..MaxCapacity] = (
+								refill -> CAPACITY[MaxCapacity] |
+								when(i > 0) serve -> CAPACITY[i-1] |
+								cupsLeft[i] -> CAPACITY[i]
+							).

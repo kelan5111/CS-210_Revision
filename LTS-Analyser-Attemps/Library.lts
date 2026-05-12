@@ -1,0 +1,15 @@
+// Library Example
+
+Student = (enter -> Student).
+Leave = (leave -> Leave).
+Librarian = (open -> Librarian | close -> Librarian).
+
+Controller(MaxCapacity=4) = Closed[0],
+Opened[i:0..MaxCapacity] = (when(i < MaxCapacity) enter -> Opened[i+1] |
+							when(i > 0) leave -> Opened[i-1] |
+							close -> Closed[i]),
+Closed[i:0..MaxCapacity] = (when(i > 0) leave -> Closed[i-1] | open -> Opened[i]).
+
+||Library(N=3) = ([i:0..N]:Student || Leave || Librarian || Controller).
+
+

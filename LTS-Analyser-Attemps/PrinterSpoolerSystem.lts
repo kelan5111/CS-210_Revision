@@ -1,0 +1,16 @@
+// Printer spooler system
+
+const NumUsers = 4
+range UserRange = 1..NumUsers
+const MaxTasks = 3
+range TaskRange = 0..MaxTasks
+
+USER = (request -> wait -> print -> release -> USER).
+
+PRINTER = TASK[MaxTasks],	// Set at max tasks available
+TASK[availableTask:TaskRange] = (when(availableTask > 0) request -> TASK[availableTask-1] |
+								 when(availableTask < MaxTasks) release -> TASK[availableTask+1]
+								).
+
+||PRINTER_SPOOLER_SYSTEM = (user[user:UserRange]:USER || PRINTER)
+/{[user:UserRange].request/request, [user:UserRange].release/release}.
