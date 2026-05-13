@@ -1,0 +1,8 @@
+// Printer: ensuring all properties are satisfied
+
+Printer = (submit -> print -> Printer).
+
+// Safety check- ensuring the order is submit and then print
+property PrintActionOrder = (submit -> print -> PrintActionOrder).
+// Progress check- assuming fairness, ensuring print eventually fires
+progress Print = {print}

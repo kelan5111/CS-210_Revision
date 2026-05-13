@@ -1,0 +1,14 @@
+// Store
+
+Entrance = (enter -> Entrance).
+Exit = (exit -> Exit).
+Manager = (open -> Manager | close -> Manager).
+
+Assistant(N=3) = Closed[0],
+Closed[i:0..N] = (when(i > 0) exit -> Closed[i-1] |
+				  open -> Opened[i]),
+Opened[i:0..N] = (when(i > 0) exit -> Opened[i-1] |
+				  when(i < N) enter -> Opened[i+1] |
+				  close -> Closed[i]).
+
+||Store = (Entrance || Exit || Manager || Assistant(3)).

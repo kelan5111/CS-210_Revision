@@ -1,0 +1,10 @@
+// Door system: ensuring all properties are satisfied
+
+Door = (unlock -> opened -> lock -> closed -> Door).
+
+// Safety check- ensuring that the order of actions
+property DoorActionOrder = (unlock -> opened -> lock -> closed -> DoorActionOrder).
+// Progress check- assuming fairness, ensuring that the door is opened and closed
+progress Unlock = {unlock}
+progress Lock = {lock}
+

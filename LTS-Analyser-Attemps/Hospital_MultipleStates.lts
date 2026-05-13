@@ -1,0 +1,12 @@
+Receptionist = (open -> Receptionist | close -> Receptionist).
+Patient = (entering -> Patient).
+Leaving = (leaving -> Leaving).
+
+WaitingRoom(N=2) = Closed[0],
+Closed[i:0..N] = (when(i > 0) leaving -> Closed[i-1] |
+				  open -> Opened[i]),
+Opened[i:0..N] = (when(i > 0) leaving -> Opened[i-1] |
+				  when(i < N) entering -> Opened[i+1] |
+				  close -> Closed[i]).
+
+||Hospital = (patient[i:0..3]:Patient || Receptionist || Leaving || WaitingRoom(2)).	

@@ -1,0 +1,11 @@
+// Correct concurrent system: no deadlocks, safety, progress.
+
+// A progress check does not need to be checked here since it is heads or tails nevertheless...
+Coin = (toss -> heads -> Coin | toss -> tails -> Coin).
+
+// Safety property
+property HeadSafety = (toss -> heads -> HeadSafety).
+property TailSafety = (toss -> tails -> TailSafety).
+// Progress property
+progress HeadProgress = {heads}
+progress TailProgress = {tails}

@@ -1,0 +1,3 @@
+VendingMachine = (insert_coin -> select_item -> dispense -> VendingMachine).
+
+property SafeCheck = (insert_coin -> select_item -> dispense -> SafeCheck).

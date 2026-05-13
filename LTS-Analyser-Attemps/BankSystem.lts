@@ -1,0 +1,14 @@
+// Bank vault 
+
+Person = (entering -> Person).
+Exit = (exit -> Exit).
+Guard = (open -> Guard | close -> Guard).
+//at most 2 people, 
+Vault(N=2) = Closed[0],
+Closed[i:0..N] = (open -> Opened[i] |
+				  when(i > 0) exit -> Closed[i-1]),
+Opened[i:0..N] = (close -> Closed[i] |
+				  when(i < N) enter -> Opened[i+1] |
+				  when(i > 0) exit -> Closed[i-1]).
+
+||Bank = (Person || Exit || Guard || Vault).

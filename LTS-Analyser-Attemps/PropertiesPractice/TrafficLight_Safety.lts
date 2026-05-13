@@ -1,0 +1,3 @@
+TrafficLight = (green -> amber -> red -> TrafficLight).
+
+property SafetyCheck = (green -> amber -> red -> SafetyCheck).
