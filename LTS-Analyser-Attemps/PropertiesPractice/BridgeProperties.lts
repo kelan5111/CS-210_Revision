@@ -1,0 +1,19 @@
+// Bridge problem demonstrating starvation
+
+Bridge = (westEnter -> westExit -> Bridge | eastEnter -> eastExit -> Bridge).
+
+// No mutual exclusion enforced- Bridge allows both directions to simultaneously
+// Because west State loops back to Bridge, east State never gets chosen
+//Starvation occurs here since the west state gets chosen and east doesn't have to be chosen by the scheduler
+
+// Scheduler(LTSA): decideds which non-deterministic action/state gets chosen next.
+// Scheduler(OS): determines which threads gets CPU time
+
+FixedBridge = (westEnter -> westExit -> Bridge | eastEnter -> eastExit -> Bridge).
+property WestCheck = (westEnter -> westExit -> WestCheck).
+property EastCheck = (eastEnter -> eastExit -> EastCheck).
+progress WestExit = {westExit}
+progress EastExit = {eastExit}
+
+// Safety property- we check to make sure a car exits before another enters.
+// Progress Property- assuming fairness we check that the actions westExist and eastExit are infinitely executed

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Semaphore.iml" filepath="$PROJECT_DIR$/.idea/Semaphore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwimmingPoolSystem/SwimmingPoolSystem.iml" filepath="$PROJECT_DIR$/SwimmingPoolSystem/SwimmingPoolSystem.iml" />
     </modules>
   </component>
 </project>
